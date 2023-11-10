@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: Statefulset
 metadata:
   labels:
     app: chess
@@ -25,24 +25,23 @@ spec:
         - configMapRef:
             name: configmap-mongo
         volumeMounts:
-        - mountPath: /data/db
+        - mountPath: 
           name: mongo-volume
       volumes:
       - name: mongo-volume
         persistentVolumeClaim:
-          claimName: efs-pv-mongo
-      tolerations:
-       - key: "tool"
-         operator: "Equal"
-         value: "chess"
-         effect: "NoSchedule"
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-            - matchExpressions:
-              - key: chess
-                operator: In
-                values:
-                - tool
-
+          claimName: 
+    #   tolerations:
+    #    - key: "tool"
+    #      operator: "Equal"
+    #      value: "chess"
+    #      effect: "NoSchedule"
+    #   affinity:
+    #     nodeAffinity:
+    #       requiredDuringSchedulingIgnoredDuringExecution:
+    #         nodeSelectorTerms:
+    #         - matchExpressions:
+    #           - key: chess
+    #             operator: In
+    #             values:
+    #             - tool
