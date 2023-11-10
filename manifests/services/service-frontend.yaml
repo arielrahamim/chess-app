@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:      
+  name: frontend
+  labels:
+    app: chess
+spec:
+  selector:
+    instance: pod-frontend
+  type: NodePort
+  ports:
+    - port: 80
+      targetPort: 3000
+      nodePort: 30080
+       
+

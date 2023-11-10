@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploy-frontend
+  labels:
+    app: chess
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      instance: pod-frontend
+  template:
+    metadata:
+      name: front
+      labels:
+        instance: pod-frontend
+    spec:
+      containers:
+      - name: front
+        image: omerandori/chess-client:latest
+        imagePullPolicy: Always
+        envFrom:
+        - configMapRef:
+            name: configmap-frontend 
+

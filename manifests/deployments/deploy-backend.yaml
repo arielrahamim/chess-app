@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploy-backend
+  labels:
+    app: chess
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instance: pod-backend
+  template:
+    metadata:
+      name: back
+      labels:
+        instance: pod-backend
+    spec:
+      containers:
+      - name: back
+        image: omerandori/chess-server:latest
+        imagePullPolicy: Always
+        envFrom:
+        - configMapRef:
+            name: configmap-backend
+      tolerations:
+       - key: "tool"
+         operator: "Equal"
+         value: "chess"
+         effect: "NoSchedule"
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In 
+                values:
+                - tool-chess
