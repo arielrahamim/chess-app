@@ -1,5 +1,5 @@
 # Base Image
-FROM node:18.18.2-slim
+FROM node:18.14.2-alpine3.17
 
 # Set the working directory
 WORKDIR /usr/src/app
@@ -7,16 +7,10 @@ WORKDIR /usr/src/app
 # Copy files/directory from the host to the container
 COPY . /usr/src/app
 
-# old shell script that sets up env variables, will delete later
-### COPY entrypoint.sh /entrypoint.sh
-
 # Run a command during build time
-### RUN chmod +x /entrypoint.sh
-#RUN apt-get update 
-#RUN apt-get bash
-#RUN apt-get curl
-RUN npm install 
-RUN npm install -g serve
+
+RUN npm install --loglevel verbose                
+RUN npm install -g serve --loglevel verbose                
 
 # Set an environment variable
 ### old env variable, probably not needed?
