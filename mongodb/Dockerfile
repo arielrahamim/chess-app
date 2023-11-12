@@ -1,0 +1,9 @@
+FROM mongo:7.0
+
+ENV MONGO_INITDB_ROOT_USERNAME mongo_user  
+ENV MONGO_INITDB_ROOT_PASSWORD mongo_pass
+ENV MONGO_INITDB_DATABASE mongo
+EXPOSE 27017
+
+# deafult mongo comand
+CMD ["mongod"]

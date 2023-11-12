@@ -1,16 +1,17 @@
 # Base Image
-FROM node:18.14.2-alpine3.17
+#FROM node:18.14.2-alpine3.17
+FROM node:18.18.2-alpine3.18
 
 # Set the working directory
 WORKDIR /usr/src/app
 
 # Copy files/directory from the host to the container
-COPY . /usr/src/app
-
-# Run a command during build time
+COPY package*.json ./
 
 RUN npm install --loglevel verbose                
-RUN npm install -g serve --loglevel verbose                
+RUN npm install -g serve --loglevel verbose 
+
+COPY . /usr/src/app
 
 # Set an environment variable
 ### old env variable, probably not needed?
