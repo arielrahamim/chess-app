@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/static/css/main.aa7899eb.css",
+    "main.js": "/static/js/main.5d1c3c8d.js",
+    "static/js/787.9017e8c9.chunk.js": "/static/js/787.9017e8c9.chunk.js",
+    "static/media/chess_bg_1.jpg": "/static/media/chess_bg_1.ec0744e9e618d57f8ee8.jpg",
+    "static/media/chess_move_sound.mp3": "/static/media/chess_move_sound.f3d55b1308b9c079c2ce.mp3",
+    "index.html": "/index.html",
+    "main.aa7899eb.css.map": "/static/css/main.aa7899eb.css.map",
+    "main.5d1c3c8d.js.map": "/static/js/main.5d1c3c8d.js.map",
+    "787.9017e8c9.chunk.js.map": "/static/js/787.9017e8c9.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.aa7899eb.css",
+    "static/js/main.5d1c3c8d.js"
+  ]
+}

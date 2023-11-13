@@ -5,13 +5,12 @@ FROM node:18.18.2-alpine3.18
 # Set the working directory
 WORKDIR /usr/src/app
 
-# Copy files/directory from the host to the container
-COPY package*.json ./
-
-RUN npm install --loglevel verbose                
-RUN npm install -g serve --loglevel verbose 
-
+# Copy files/directory from the host to the container 
 COPY . /usr/src/app
+# installing package dependecies 
+RUN npm install 
+RUN npm install -g serve
+RUN npm run build
 
 # Set an environment variable
 ### old env variable, probably not needed?
@@ -27,7 +26,7 @@ EXPOSE 80
 
 
 # Set the default command 
-### CMD ["/bin/bash", "-c", "/entrypoint.sh"]
+CMD ["serve", "-s", "build"]
 
 
 
