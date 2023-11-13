@@ -5,23 +5,23 @@ metadata:
   labels:
     app: chess
 spec:
-  replicas: {{ .Values.chess-back-end.replicaCount }}
+  replicas: {{ .Values.chess-backend.replicaCount }}
   selector:
     matchLabels:
       instance: pod-backend
   template:
     metadata:
-      name: back
+      name: backend
       labels:
         instance: pod-backend
     spec:
       containers:
-      - name: back
-        image: {{ .Values.chess-back-end.image }}
+      - name: chess-backend
+        image: {{ .Values.chess-backend.image }}
         imagePullPolicy: Always
         envFrom:
         - configMapRef:
-            name: configmap-backend
+            name: chess-backend-configmap
       # tolerations:
       #  - key: "tool"
       #    operator: "Equal"

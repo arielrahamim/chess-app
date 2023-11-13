@@ -2,26 +2,35 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-chess-back-end:
-  image:
-  tag:
-  replicaCount: 
-  service:
-    port:
-    name:
 
-chess-front-end:
-  image:
-  tag:
-  replicaCount: 
-  service:
-    port:
-    name:
+chess-frontend:
+  image: arielrahamim/chess-frontend
+  tag: latest
+  replicaCount: 1 
+  service: 
+    port: 3000
+    name: frontend-port
+    nodePort: 30005
+  configmap:
+    name: chess-backend-configmap
 
-mongo:
-  image:
-  tag:
-  replicaCount: 
-  service:
-    port:
-    name:
+chess-backend:
+  image: arielrahamim/chess-backend
+  tag: latest
+  replicaCount: 1
+  service: 
+    port: 5000
+    name: backend-port
+    nodePort: 30500
+  configmap:
+    name: chess-frontend-configmap
+
+mongodb:
+  image: arielrahamim/chess-mongodb
+  tag: latest
+  replicaCount: 1 
+  service: 
+    port: 27017 
+    name: mongodb-port
+  configmap:
+    name: chess-mongodb-configmap

@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: configmap-backend
+  name: chess-backend-configmap
 data:
   CLIENT_URL: "18.194.33.124:30080"
   MONGO_URI: "mongodb://mongo:chess-db@mongo.kube-tool.svc.cluster.local:27017/chess"
