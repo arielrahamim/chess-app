@@ -5,7 +5,7 @@ metadata:
   labels:
     app: chess
 spec:
-  replicas: {{ .Values.chess-backend.replicaCount }}
+  replicas: {{ .Values.chessBackend.replicaCount }}
   selector:
     matchLabels:
       instance: pod-backend
@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: chess-backend
-        image: {{ .Values.chess-backend.image }}
+        image: {{ .Values.chessBackend.image }}
         imagePullPolicy: Always
         envFrom:
         - configMapRef:

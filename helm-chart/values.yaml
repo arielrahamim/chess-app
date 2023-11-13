@@ -3,34 +3,30 @@
 # Declare variables to be passed into your templates.
 
 
-chess-frontend:
+chessFrontend:
   image: arielrahamim/chess-frontend
   tag: latest
   replicaCount: 1 
   service: 
-    port: 3000
-    name: frontend-port
-    nodePort: 30005
-  configmap:
-    name: chess-backend-configmap
+  port: 3000
+  portName: frontend-port
+  nodePort: 30005
+  configmap: chess-backend-configmap
 
-chess-backend:
+chessBackend:
   image: arielrahamim/chess-backend
   tag: latest
   replicaCount: 1
-  service: 
-    port: 5000
-    name: backend-port
-    nodePort: 30500
-  configmap:
-    name: chess-frontend-configmap
+  port: 5000
+  portName: backend-port
+  nodePort: 30500
+  configmap: chess-frontend-configmap
 
 mongodb:
   image: arielrahamim/chess-mongodb
   tag: latest
   replicaCount: 1 
   service: 
-    port: 27017 
-    name: mongodb-port
-  configmap:
-    name: chess-mongodb-configmap
+  port: 27017 
+  portName: mongodb-port
+  configmap: chess-mongodb-configmap

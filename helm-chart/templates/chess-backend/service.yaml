@@ -9,8 +9,11 @@ spec:
     instance: pod-backend
   type: NodePort
   ports:
-    - port: {{ .Values.chess-backend.service.port }}
-      targetPort: {{ .Values.chess-backend.service.port }}
-      nodePort: {{ .Values.chess-backend.service.nodePort }}
+    - protocol: TCP
+      port: {{ .Values.chessBackend.port }}
+      name: {{ .Values.chessBackend.portName }}
+      targetPort: {{ .Values.chessBackend.port }}
+      nodePort: {{ .Values.chessBackend.nodePort }}
+
        
 
