@@ -1,9 +1,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: "{{ .Chart.Name }}-Backend"
-  labels:
-    app: chess
+  name: "{{- include "chess.name" . }}-backend-deployment"
+  labels: {{- include "chess.labels" . | nindent 4 }} 
 spec:
   replicas: {{ .Values.chessBackend.replicaCount }}
   selector:
@@ -17,22 +16,8 @@ spec:
     spec:
       containers:
       - name: chess-backend
-        image: {{ .Values.chessBackend.image }}
+        image: "{{ .Values.chessBackend.image }}:{{ .Values.chessBackend.tag }}"
         imagePullPolicy: Always
         envFrom:
         - configMapRef:
             name: chess-backend-configmap
-      # tolerations:
-      #  - key: "tool"
-      #    operator: "Equal"
-      #    value: "chess"
-      #    effect: "NoSchedule"
-      # affinity:
-      #   nodeAffinity:
-      #     requiredDuringSchedulingIgnoredDuringExecution:
-      #       nodeSelectorTerms:
-      #       - matchExpressions:
-      #         - key: kubernetes.io/hostname
-      #           operator: In 
-      #           values:
-      #           - tool-chess

@@ -11,7 +11,8 @@ chessFrontend:
   port: 3000
   portName: frontend-port
   nodePort: 30005
-  configmap: chess-backend-configmap
+  configmap: chess-app-backend-configmap
+  labels: chess-frontend
 
 chessBackend:
   image: arielrahamim/chess-backend
@@ -20,7 +21,8 @@ chessBackend:
   port: 5000
   portName: backend-port
   nodePort: 30500
-  configmap: chess-frontend-configmap
+  configmap: chess-app-frontend-configmap
+  labels: chess-backend
 
 mongodb:
   image: arielrahamim/chess-mongodb
@@ -30,3 +32,4 @@ mongodb:
   port: 27017 
   portName: mongodb-port
   configmap: chess-mongodb-configmap
+  labels: chess-mongodb

@@ -3,10 +3,9 @@ kind: Statefulset
 metadata:
   labels:
     app: chess
-  name: deploy-mongo
-  namespace: kube-tool
+  name: "{{- include "chess.name" . }}-mongodb-deployment"
 spec:
-  replicas: 1
+  replicas: {{ .Values.mongodb.replicaCount }}
   selector:
     matchLabels:
       instance: pod-mongo
@@ -16,11 +15,11 @@ spec:
         instance: pod-mongo
     spec:
       containers:
-      - image: mongo:latest
+      - image: "{{ .Values.mongodb.image }}:{{ .Values.mongodb.tag }}"
         name: mongodb
         imagePullPolicy: Always
         args:
-        - --port=27017
+        - --port= {{ .Values.mongodb.port }}
         envFrom:
         - configMapRef:
             name: configmap-mongo
@@ -31,17 +30,3 @@ spec:
       - name: mongo-volume
         persistentVolumeClaim:
           claimName: 
-    #   tolerations:
-    #    - key: "tool"
-    #      operator: "Equal"
-    #      value: "chess"
-    #      effect: "NoSchedule"
-    #   affinity:
-    #     nodeAffinity:
-    #       requiredDuringSchedulingIgnoredDuringExecution:
-    #         nodeSelectorTerms:
-    #         - matchExpressions:
-    #           - key: chess
-    #             operator: In
-    #             values:
-    #             - tool

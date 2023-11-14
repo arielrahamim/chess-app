@@ -1,23 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: deploy-frontend
-  labels:
-    app: chess
+  name: "{{- include "chess.name" . }}-frontend-deployment"
+  labels: {{- include "chess.labels" . | nindent 4 }} 
 spec:
-  replicas: 3
+  replicas: {{ .Values.chessFrontend.replicaCount }}
   selector:
-    matchLabels:
-      instance: pod-frontend
+    matchLabels: pod-frontend
   template:
     metadata:
-      name: front
+      name: frontend
       labels:
         instance: pod-frontend
     spec:
       containers:
       - name: front
-        image: omerandori/chess-client:latest
+        image: "{{ .Values.chessFrontend.image }}:{{ .Values.chessFrontend.tag }}"
         imagePullPolicy: Always
         envFrom:
         - configMapRef:

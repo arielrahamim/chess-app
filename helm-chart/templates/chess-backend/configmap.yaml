@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: chess-backend-configmap
+  name: {{ .Values.chessBackend.configmap | quote }}
 data:
-  CLIENT_URL: "18.194.33.124:30080"
+#  CLIENT_URL: "{{ include "chess.chart" . | indent 2 }}-frontend-svc":{{ .Values.chessFrontend.port }}
   MONGO_URI: "mongodb://mongo:chess-db@mongo.kube-tool.svc.cluster.local:27017/chess"
 
 
