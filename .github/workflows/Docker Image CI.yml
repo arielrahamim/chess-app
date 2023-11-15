@@ -26,10 +26,12 @@ jobs:
             minor=$(echo "$latest_tag" | cut -d "-" -f2 | cut -d "." -f2)
             patch=$(echo "$latest_tag" | cut -d "-" -f2 | cut -d "." -f3)
             
-            new_tag=""
             patch=$((patch + 1))
             new_tag="$image.$major.$minor.$patch"
             latest_tag="$new_tag"
+        - name: Debug latest_tag
+          run: |
+            echo "Latest Tag Var: $latest_tag"
         - name: Set up Docker Buildx
           uses: docker/setup-buildx-action@v3
 
@@ -44,5 +46,9 @@ jobs:
           with:
             context: ${{ github.event.inputs.image_ci }}/.
             push: true
+<<<<<<< HEAD
             tags: arielrahamim/chess-${{ github.event.inputs.image_ci }}:${{ github.env.latest_tag }}
+=======
+            tags: "arielrahamim/chess-${{ github.event.inputs.image_ci }}:$latest_tag"
+>>>>>>> 8959161fa7b4188f81483d7893cd269f83f3e901
 
