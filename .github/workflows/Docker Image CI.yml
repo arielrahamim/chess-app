@@ -27,8 +27,9 @@ jobs:
             patch=$(echo "$current_tag" | cut -d "-" -f2 | cut -d "." -f3)
             
             patch=$((patch + 1))
-            new_tag="$image.$major.$minor.$patch"
-            echo "latest_tag=$new_tag" >> $GITHUB_ENV
+            new_tag=""
+            new_tag="$image-$major.$minor.$patch"
+            echo "$new_tag" >> $GITHUB_ENV
         - name: Debug latest_tag
           run: |
             echo "Latest Tag Var: $latest_tag"
@@ -46,5 +47,5 @@ jobs:
           with:
             context: ${{ github.event.inputs.image_ci }}/.
             push: true
-            tags: arielrahamim/chess-${{ github.event.inputs.image_ci }}:${{ env.latest_tag }}
+            tags: arielrahamim/chess-${{ github.event.inputs.image_ci }}:${{ env.new_tag }}
 
