@@ -20,7 +20,7 @@ jobs:
    
         - name: set env variable
           run: | 
-            echo "latest_tag=$(git tag -l --sort=creatordate | grep backend | tail -1)" >> $GITHUB_ENV
+            echo "latest_tag=$(git tag -l --sort=creatordate | grep ${{ github.event.inputs.image_ci }} | tail -1)" >> $GITHUB_ENV
             image=$(echo "$latest_tag" | cut -d "-" -f1)
             major=$(echo "$latest_tag" | cut -d "-" -f2 | cut -d "." -f1)
             minor=$(echo "$latest_tag" | cut -d "-" -f2 | cut -d "." -f2)
@@ -28,7 +28,7 @@ jobs:
             
             new_tag=""
             patch=$((patch + 1))
-            new_tag=$image$major$minor$patch
+            new_tag="$image.$major.$minor.$patch"
             latest_tag="$new_tag"
         - name: Set up Docker Buildx
           uses: docker/setup-buildx-action@v3
@@ -44,5 +44,5 @@ jobs:
           with:
             context: ${{ github.event.inputs.image_ci }}/.
             push: true
-            tags: arielrahamim/chess-${{ github.event.inputs.image_ci }}:$latest_tag
+            tags: arielrahamim/chess-${{ github.event.inputs.image_ci }}:${{ github.env.latest_tag }}
 
