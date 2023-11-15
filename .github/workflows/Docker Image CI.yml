@@ -20,7 +20,7 @@ jobs:
    
         - name: set env variable
           run: | 
-            echo "$(git tag -l --sort=creatordate | grep ${{ github.event.inputs.image_ci }} | tail -1)=latest_tag" >> $GITHUB_ENV 
+            echo "latest_tag=$(git tag -l --sort=creatordate | grep backend | tail -1)" >> $GITHUB_ENV
             image=$(echo "$latest_tag" | cut -d "-" -f1)
             major=$(echo "$latest_tag" | cut -d "-" -f2 | cut -d "." -f1)
             minor=$(echo "$latest_tag" | cut -d "-" -f2 | cut -d "." -f2)
