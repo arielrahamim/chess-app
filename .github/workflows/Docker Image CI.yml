@@ -39,6 +39,11 @@ jobs:
               new_tag="$image-$major.$minor.$patch"
               echo "latest_tag=${new_tag}" >> $GITHUB_ENV
 
+              echo "aviv"
+              echo "This Is The Image:$image"
+              echo "This Is The Major:$major"
+              echo "This Is The Minor:$minor"
+              echo "This Is The Patch:$Patch"
               echo $new_tag
 
         - name: Build and push
