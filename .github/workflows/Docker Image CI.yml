@@ -52,10 +52,17 @@ jobs:
             push: true
             tags: arielrahamim/chess-${{ github.event.inputs.image_ci }}:${{ env.latest_tag }}
 
-        - name: Git Tag Increment
+        - name: Checkout -> Git Tag Increment
+          uses: actions/checkout@v4
           run: |
+            git config user.name github-actions
+            git config user.email github-actions@github.com
             git tag "${{ env.latest_tag }}" 
             git push --tag
+         with: 
+           fetch-depth: '0'
+            repository: arielrahamim/chess-app
+            token: ${{ secrets.GITHUB_TOKEN }}
           
 
 
