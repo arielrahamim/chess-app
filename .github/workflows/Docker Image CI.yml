@@ -1,0 +1,42 @@
+name: Docker Image CI
+
+on:
+  workflow_dispatch:
+    inputs:
+      image_ci: 
+        type: choice
+        description: "the image to build"
+        required: true
+        options:
+        - frontend
+        - backend
+        - mongodb
+
+jobs:
+  docker:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v4
+   
+        - name: set env variable
+          run: | 
+            echo "$(git tag -l --sort=creatordate | grep ${{ github.event.inputs.image_ci }} | tail -1)=latest_tag" >> $GITHUB_ENV 
+
+
+
+        - name: Set up Docker Buildx
+          uses: docker/setup-buildx-action@v3
+
+        - name: Login to Docker Hub
+          uses: docker/login-action@v3
+          with:
+            username: ${{ secrets.DOCKERHUB_USERNAME }}
+            password: ${{ secrets.DOCKER_HUB_TOKEN }}
+
+        - name: Build and push
+          uses: docker/build-push-action@v5
+          with:
+            context: ${{ github.event.inputs.image_ci }}/.
+            push: true
+            tags: arielrahamim/chess-${{ github.event.inputs.image_ci }}:${{ github.}}
+
