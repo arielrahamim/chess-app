@@ -21,15 +21,15 @@ jobs:
         - name: set env variable
           run: | 
             echo "$(git tag -l --sort=creatordate | grep ${{ github.event.inputs.image_ci }} | tail -1)=latest_tag" >> $GITHUB_ENV 
-            image= echo "$latest_tag" | cut -d "-" -f1
-            major= echo "$latest_tag" | cut -d "-" -f2 | cut -d "." -f1
-            minor= echo "$latest_tag" | cut -d "-" -f2 | cut -d "." -f2
-            patch= echo "$latest_tag" | cut -d "-" -f2 | cut -d "." -f3
+            image=$(echo "$latest_tag" | cut -d "-" -f1)
+            major=$(echo "$latest_tag" | cut -d "-" -f2 | cut -d "." -f1)
+            minor=$(echo "$latest_tag" | cut -d "-" -f2 | cut -d "." -f2)
+            patch=$(echo "$latest_tag" | cut -d "-" -f2 | cut -d "." -f3)
             
             new_tag=""
-            patch=$(patch + 1)
-            new_tag=$image $major $minor $patch
-            latest_tag=$new_tag
+            patch=$((patch + 1))
+            new_tag=$image$major$minor$patch
+            latest_tag="$new_tag"
         - name: Set up Docker Buildx
           uses: docker/setup-buildx-action@v3
 
