@@ -38,6 +38,8 @@ jobs:
               new_tag=""
               new_tag="${image}-${major}.${minor}.${patch}"
               echo "latest_tag=${new_tag}" >> $GITHUB_ENV
+              echo $latest_tag
+              echo $new_tag
 
         - name: Build and push
           uses: docker/build-push-action@v5
