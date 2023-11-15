@@ -54,4 +54,8 @@ jobs:
           run: |
             git tag "${{ env.latest_tag }}" 
             git push --tag --force
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+
 
