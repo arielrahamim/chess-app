@@ -30,9 +30,7 @@ jobs:
             new_tag=""
             new_tag="$image-$major.$minor.$patch"
             echo "$new_tag" >> $GITHUB_ENV
-        - name: Debug latest_tag
-          run: |
-            echo "Latest Tag Var: $latest_tag"
+
         - name: Set up Docker Buildx
           uses: docker/setup-buildx-action@v3
 
