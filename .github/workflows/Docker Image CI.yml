@@ -36,8 +36,7 @@ jobs:
               
               patch=$((patch + 1))
               new_tag=""
-              latest_tag=""
-              new_tag="$image-$major.$minor.$patch"
+              new_tag="${image}-${major}.${minor}.${patch}"
               echo "latest_tag=${new_tag}" >> $GITHUB_ENV
 
         - name: Build and push
