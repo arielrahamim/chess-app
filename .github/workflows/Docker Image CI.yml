@@ -40,6 +40,8 @@ jobs:
               echo "latest_tag=${new_tag}" >> $GITHUB_ENV
 
               echo "aviv"
+              echo "This is the Current tag: $current_tag"
+              echo "This Is the First cut: $current_tag | cut -d "-" -f2"
               echo "This Is The Image:$image"
               echo "This Is The Major:$major"
               echo "This Is The Minor:$minor"
