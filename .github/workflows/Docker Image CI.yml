@@ -46,9 +46,5 @@ jobs:
           with:
             context: ${{ github.event.inputs.image_ci }}/.
             push: true
-<<<<<<< HEAD
             tags: arielrahamim/chess-${{ github.event.inputs.image_ci }}:${{ github.env.latest_tag }}
-=======
-            tags: "arielrahamim/chess-${{ github.event.inputs.image_ci }}:$latest_tag"
->>>>>>> 8959161fa7b4188f81483d7893cd269f83f3e901
 
