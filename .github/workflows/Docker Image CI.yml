@@ -20,11 +20,11 @@ jobs:
    
         - name: set env variable
           run: | 
-            current_tag="$(git tag -l --sort=creatordate | grep ${{ github.event.inputs.image_ci }} | tail -1)"
-            image=$(echo "$current_tag" | cut -d "-" -f1)
-            major=$(echo "$current_tag" | cut -d "-" -f2 | cut -d "." -f1)
-            minor=$(echo "$current_tag" | cut -d "-" -f2 | cut -d "." -f2)
-            patch=$(echo "$current_tag" | cut -d "-" -f2 | cut -d "." -f3)
+            current_tag=$(git tag -l --sort=creatordate | grep ${{ github.event.inputs.image_ci }} | tail -1)
+            image=$(echo $current_tag | cut -d "-" -f1)
+            major=$(echo $current_tag | cut -d "-" -f2 | cut -d "." -f1)
+            minor=$(echo $current_tag | cut -d "-" -f2 | cut -d "." -f2)
+            patch=$(echo $current_tag | cut -d "-" -f2 | cut -d "." -f3)
             
             patch=$((patch + 1))
             new_tag=""
