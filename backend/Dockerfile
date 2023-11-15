@@ -5,6 +5,7 @@ FROM node:18.14.2-alpine3.17
 WORKDIR /usr/src/app
 
 # Copy Source Code & Install Modules
+RUN apk update && apk add bash
 COPY . /usr/src/app
 RUN npm ci
 
