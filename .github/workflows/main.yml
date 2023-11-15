@@ -1,0 +1,39 @@
+name: Docker Image CI
+
+on:
+  workflow_dispatch:
+    inputs:
+      image_ci: 
+      type: choise
+      desciption: "the image to build"
+      required: true
+      options:
+        - frontend
+        - backend
+        - mongodb
+  push:
+    branches: [ "" ] # temporary disabled
+  pull_request:
+    branches: [ "" ] # temporary disabled
+jobs:
+  image_ci:
+    docker:
+      runs-on: ubuntu-latest
+      steps:
+        -
+          name: Set up Docker Buildx
+          uses: docker/setup-buildx-action@v3
+        -
+          name: Login to Docker Hub
+          uses: docker/login-action@v3
+          with:
+            username: ${{ secrets.DOCKERHUB_USERNAME }}
+            password: ${{ secrets.DOCKER_HUB_TOKEN }}
+        -
+          name: Build and push
+          uses: docker/build-push-action@v5
+          with:
+            push: true
+            tags: |
+              ${{ format('arielrahamim/chess-{0}:latest', github.event.inputs.image_ci) }}
+
