@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: Docker Image CI - ${{ github.event.inputs.image_ci }}
 
 on:
   workflow_dispatch:
