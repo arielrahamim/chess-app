@@ -14,7 +14,7 @@ RUN npm run build
 
 # Set an environment variable
 ### old env variable, probably not needed?
-ENV REACT_APP_HOST localhost
+ENV REACT_APP_HOST localhost:3000/api
 ENV SKIP_PREFLIGHT_CHECK true
 
 # Set a label used to be able to add meta data to a iamge
