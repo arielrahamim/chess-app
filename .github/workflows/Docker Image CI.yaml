@@ -1,5 +1,5 @@
 name: Docker Image CI
-run-name: Building & Pushing ${{ github.event.inputs.image_ci }} Image
+run-name: Building & Pushing ${{ github.event.inputs.image_ci }} Image - ${{ env.latest_tag}}
 on:
   workflow_dispatch:
     inputs:
