@@ -12,7 +12,7 @@ RUN npm ci
 # Set an environment variable
 ENV SERVER_PORT 5000
 ENV CLIENT_URL localhost:3000
-ENV MONGO_URI mongodb://localhost:27017/mongo
+ENV MONGO_URI mongodb://mongo_user:mongo_pass@localhost:27017/mongo
 ENV DB_HOST mongo_user
 ENV DB_PASS mongo_pass
 ENV MONGODB_DATABASE mongo
