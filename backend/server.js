@@ -47,11 +47,14 @@ if (process.env.NODE_ENV === 'production') {
     });
 }
 
+
+
 // connect to mongodb database
 mongoose.connect(
     MONGO_URI,
     { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true },
     (err) => {
+        console.log(process.env)
         if (err) throw err;
         console.log('MongoDB is connected');
     }
