@@ -53,7 +53,7 @@ jobs:
           with:
             context: ${{ github.event.inputs.image_ci }}/.
             push: true
-            tags: arielrahamim/chess-${{ github.event.inputs.image_ci }}:${{ env.latest_tag }}
+            tags: arielrahamim/chess-app:${{ env.latest_tag }}
 
         - name: Git Tag Increment
           run: |
