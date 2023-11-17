@@ -13,7 +13,9 @@ on:
         - mongodb
 
 jobs:
-  docker:
+  docker_build:
+      permissions: write-all
+
       runs-on: ubuntu-latest
       steps:
         - name: Checkout Code
@@ -52,17 +54,15 @@ jobs:
             push: true
             tags: arielrahamim/chess-${{ github.event.inputs.image_ci }}:${{ env.latest_tag }}
 
-        - name: Checkout -> Git Tag Increment
-          uses: actions/checkout@v4
+        - name: Git Tag Increment
           run: |
             git config user.name github-actions
             git config user.email github-actions@github.com
             git tag "${{ env.latest_tag }}" 
             git push --tag
-         with: 
-           fetch-depth: '0'
-            repository: arielrahamim/chess-app
-            token: ${{ secrets.GITHUB_TOKEN }}
+            env:
+              
+
           
 
 
