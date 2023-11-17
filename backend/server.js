@@ -34,9 +34,10 @@ app.use(cors());
 const gameRouter = require('./routes/gameRouter');
 const userRouter = require('./routes/userRouter');
 const testRouter = require('./routes/testRouter'); 
-app.use('/g', gameRouter);
-app.use('/u', userRouter);
-app.use('/test', testRouter);
+// app.use('/g', gameRouter);
+app.use('/api/g', gameRouter);
+app.use('/api/u', userRouter);
+app.use('/api/test', testRouter);
 
 // Serve static assets if in production
 if (process.env.NODE_ENV === 'production') {
