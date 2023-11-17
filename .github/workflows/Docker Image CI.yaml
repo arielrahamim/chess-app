@@ -1,0 +1,67 @@
+name: Docker Image CI
+run-name: Building & Pushing ${{ github.event.inputs.image_ci }} Image
+on:
+  workflow_dispatch:
+    inputs:
+      image_ci: 
+        type: choice
+        description: "Choose Which image to build"
+        required: true
+        options:
+        - frontend
+        - backend
+        - mongodb
+
+jobs:
+  ImageBuilder:
+      permissions: # modify the default permissions granted to the GITHUB_TOKEN
+        contents: write
+
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout Code
+          uses: actions/checkout@v4
+          with: 
+            fetch-depth: '0'
+            repository: arielrahamim/chess-app
+            token: ${{ secrets.GITHUB_TOKEN }}
+
+        - name: Set up Docker Buildx
+          uses: docker/setup-buildx-action@v3
+
+        - name: Login to Docker Hub
+          uses: docker/login-action@v3
+          with:
+            username: ${{ secrets.DOCKERHUB_USERNAME }}
+            password: ${{ secrets.DOCKER_HUB_TOKEN }}
+
+        - name: set env variable
+          run: | 
+              current_tag=$(git tag --sort=creatordate | grep ${{ github.event.inputs.image_ci }} | tail -n 1)
+              image=$(echo $current_tag | cut -d "-" -f1)
+              major=$(echo $current_tag | cut -d "-" -f2 | cut -d "." -f1)
+              minor=$(echo $current_tag | cut -d "-" -f2 | cut -d "." -f2)
+              patch=$(echo $current_tag | cut -d "-" -f2 | cut -d "." -f3)
+              
+              patch=$((patch + 1))
+              new_tag=""
+              new_tag="$image-$major.$minor.$patch"
+              echo "latest_tag=${new_tag}" >> $GITHUB_ENV
+
+        - name: Build and push
+          uses: docker/build-push-action@v5
+          with:
+            context: ${{ github.event.inputs.image_ci }}/.
+            push: true
+            tags: arielrahamim/chess-app:${{ env.latest_tag }}
+
+        - name: Applying The New Tag To Repo
+          run: |
+            git config user.name github-actions
+            git config user.email github-actions@github.com
+            git tag "${{ env.latest_tag }}" 
+            git push --tag
+
+          
+
+
