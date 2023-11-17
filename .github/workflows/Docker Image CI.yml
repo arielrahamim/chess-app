@@ -14,7 +14,8 @@ on:
 
 jobs:
   ImageBuilder:
-      permissions: write-all
+      permissions: # modify the default permissions granted to the GITHUB_TOKEN
+        contents: write
 
       runs-on: ubuntu-latest
       steps:
