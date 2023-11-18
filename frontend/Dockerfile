@@ -17,7 +17,7 @@ RUN npm install
 RUN npm install -g serve
 
 # ENV VARI
-ENV REACT_APP_HOST localhost:5000/api
+# ENV REACT_APP_HOST localhost:5000/api
 ENV SKIP_PREFLIGHT_CHECK true
 
 # Expose a port
