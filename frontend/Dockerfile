@@ -1,5 +1,4 @@
 # Base Image
-#FROM node:18.14.2-alpine3.17
 FROM node:18.18.2-alpine3.18
 
 # Set the working directory
@@ -7,26 +6,22 @@ WORKDIR /usr/src/app
 
 # Copy files/directory from the host to the container 
 COPY . /usr/src/app
-# installing package dependecies 
-ENV REACT_APP_HOST 172.18.163.205:5000
+RUN chmod +x /usr/src/app/entrypoint.sh
+RUN apk update 
+RUN apk add bash
 
+# installing package dependecies 
 RUN npm install 
 RUN npm install -g serve
-RUN npm run build
 
-# ENV SKIP_PREFLIGHT_CHECK true
-
-# Set a label used to be able to add meta data to a iamge
-LABEL version="1.0.0"
-LABEL description="front-end chess application"
+# ENV VARI
+ENV REACT_APP_HOST 172.18.0.3:5000
 
 # Expose a port
 EXPOSE 80
 
-
 # Set the default command 
-CMD ["serve", "-s", "build"]
-
+CMD ["/bin/bash", "-c", "/usr/src/app/entrypoint.sh"]
 
 
 

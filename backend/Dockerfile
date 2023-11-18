@@ -11,7 +11,6 @@ RUN npm ci
 
 # Set an environment variable
 ENV SERVER_PORT 5000
-ENV CLIENT_URL 172.18.0.3:3000
 ENV MONGO_URI mongodb://mongo_user:mongo_pass@172.18.0.2:27017
 
 # Set a label used to be able to add meta data to a iamge
