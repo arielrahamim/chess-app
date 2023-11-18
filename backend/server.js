@@ -34,7 +34,6 @@ app.use(cors());
 const gameRouter = require('./routes/gameRouter');
 const userRouter = require('./routes/userRouter');
 const testRouter = require('./routes/testRouter'); 
-// app.use('/g', gameRouter);
 app.use('/api/g', gameRouter);
 app.use('/api/u', userRouter);
 app.use('/api/test', testRouter);
