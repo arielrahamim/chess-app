@@ -20,4 +20,4 @@ spec:
         imagePullPolicy: Always
         envFrom:
         - configMapRef:
-            name: chess-backend-configmap
+            name: {{ .Release.Name }}-backend-configmap
