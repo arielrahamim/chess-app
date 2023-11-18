@@ -8,14 +8,13 @@ WORKDIR /usr/src/app
 # Copy files/directory from the host to the container 
 COPY . /usr/src/app
 # installing package dependecies 
+ENV REACT_APP_HOST 172.18.163.205:5000
+
 RUN npm install 
 RUN npm install -g serve
 RUN npm run build
 
-# Set an environment variable
-### old env variable, probably not needed?
-ENV REACT_APP_HOST 172.18.163.205:5000
-ENV SKIP_PREFLIGHT_CHECK true
+# ENV SKIP_PREFLIGHT_CHECK true
 
 # Set a label used to be able to add meta data to a iamge
 LABEL version="1.0.0"

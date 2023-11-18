@@ -21,7 +21,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './style.css';
 const { SERVER_URL } = require('./components/Utils/Config');
 
-console.log(SERVER_URL)
+
 function App() {
     const [user, setUser] = useState({
         isValid: false,
