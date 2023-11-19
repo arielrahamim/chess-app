@@ -65,14 +65,16 @@ jobs:
             git config user.email github-actions@github.com
             git tag "${{ env.latest_tag }}" 
             git push --tag
-            echo "arielrahamim/chess-app:${{ github.event.inputs.image }}:${{ env.latest_tag }}"
+            
 
-        - name: git_tag
-          run: |
-            git config user.name github-actions
-            git config user.email github-actions@github.com
-            git push --delete origin $(git tag --sort=creatordate | grep frontend | head -n -1)
-
+        # - name: git_tag
+        #   run: |
+        #     # WIP implement a way to delete old tags in repo
+        #     git config user.name github-actions
+        #     git config user.email github-actions@github.com
+        #     old_tags=$(git tag --sort=creatordate | grep ${{ github.event.inputs.image }} | head -n -1)
+        #     git push --delete origin <tag_name> && git tag --delete <tag_name>
+            # WIP implement a way to delete old images in dockerhub
         # - name: Delete Old Docker Images on Docker Hub
         #   run: |
         #       # Fetch all tags for the repository
