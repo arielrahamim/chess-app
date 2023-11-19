@@ -1,5 +1,5 @@
 name: Docker Image CI
-run-name: Building & Pushing ${{ github.event.inputs.image_ci }} Image 
+run-name: Building & Pushing ${{ github.event.inputs.image }} Image 
 on:
   workflow_dispatch:
     inputs:
@@ -41,7 +41,7 @@ jobs:
 
         - name: set env variable
           run: | 
-              current_tag=$(git tag --sort=creatordate | grep ${{ github.event.inputs.image_ci }} | tail -n 1)
+              current_tag=$(git tag --sort=creatordate | grep ${{ github.event.inputs.image }} | tail -n 1)
               short_commit_hash=$(git rev-parse --short HEAD)
               image=$(echo $current_tag | cut -d "-" -f1)
               major=$(echo $current_tag | cut -d "-" -f2 | cut -d "." -f1)
@@ -65,7 +65,7 @@ jobs:
         - name: Build and push
           uses: docker/build-push-action@v5
           with:
-            context: ${{ github.event.inputs.image_ci }}/.
+            context: ${{ github.event.inputs.image }}/.
             push: true
             tags: arielrahamim/chess-app:${{ env.latest_tag }}
 
@@ -75,7 +75,7 @@ jobs:
             git config user.email github-actions@github.com
             git tag "${{ env.latest_tag }}" 
             git push --tag
-            echo "arielrahamim/chess-app:${{ github.event.inputs.image_ci }}:${{ env.latest_tag }}"
+            echo "arielrahamim/chess-app:${{ github.event.inputs.image }}:${{ env.latest_tag }}"
 
         - name: git_tag
           run: |
