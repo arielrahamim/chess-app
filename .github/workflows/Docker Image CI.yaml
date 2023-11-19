@@ -71,8 +71,19 @@ jobs:
           run: |
             git config user.name github-actions
             git config user.email github-actions@github.com
-            git tag -d $(git tag --sort=creatordate | grep frontend | head -n -1)
-            git push --tags
+            git push --delete origin $(git tag --sort=creatordate | grep frontend | head -n -1)
+
+        # - name: Delete Old Docker Images on Docker Hub
+        #   run: |
+        #       # Fetch all tags for the repository
+        #       all_tags=$(curl -s -H "Authorization: Bearer ${{ secrets.DOCKER_HUB_TOKEN }}" "https://hub.docker.com/v2/repositories/arielrahamim/chess-app/tags/" | jq -r '.results[].name')
+    
+        #       # Delete all tags except the latest one
+        #       for tag in $all_tags; do
+        #         if [ "$tag" != "${{ github.event.inputs.image }}:${{ env.latest_tag }}" ]; then
+        #           curl -X DELETE -H "Authorization: Bearer ${{ secrets.DOCKER_HUB_TOKEN }}" "https://hub.docker.com/v2/repositories/arielrahamim/chess-app/tags/$tag/"
+        #         fi
+        #       done
 
 
           
