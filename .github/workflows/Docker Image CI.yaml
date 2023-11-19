@@ -48,20 +48,10 @@ jobs:
               minor=$(echo $current_tag | cut -d "-" -f2 | cut -d "." -f2)
               patch=$(echo $current_tag | cut -d "-" -f2 | cut -d "." -f3)
 
-              echo "current tag = $current_tag"
-              echo "short commit hash = $short_commit_hash"
-              echo "image = $image"
-              echo "major = $major"
-              echo "minor = $minor"
-              echo "patch = $patch"
-
               patch=$((patch + 1))
               new_tag=""
               new_tag="$image-$major.$minor.$patch-$short_commit_hash"
               echo "latest_tag=${new_tag}" >> $GITHUB_ENV
-
-              echo "new tag = $new_tag"
-
         - name: Build and push
           uses: docker/build-push-action@v5
           with:
@@ -82,7 +72,7 @@ jobs:
             git config user.name github-actions
             git config user.email github-actions@github.com
             git tag -d $(git tag --sort=creatordate | grep frontend | head -n -1)
-            git push --tag
+            git push --tags
 
 
           
