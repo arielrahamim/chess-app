@@ -2,34 +2,31 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-
+repository:
+  name: "arielrahamim/chess-app"
 chessFrontend:
-  image: arielrahamim/chess-frontend
-  tag: latest
+  tag: frontend-0.0.15-2d9745e6
   replicaCount: 1 
   service: 
   port: 3000
-  portName: frontend-port
   nodePort: 30005
-  configmap: chess-app-backend-configmap
-  labels: chess-frontend
+  host: localhost
+  name: chessFrontend
 
 chessBackend:
-  image: arielrahamim/chess-backend
-  tag: latest
+  tag: backend-0.0.11-4a78dcfb
   replicaCount: 1
   port: 5000
-  portName: backend-port
   nodePort: 30500
-  configmap: chess-app-frontend-configmap
-  labels: chess-backend
+  host: localhost
+  name: chessBackend
 
 mongodb:
-  image: arielrahamim/chess-mongodb
-  tag: latest
+  tag: mongodb-0.0.2
   replicaCount: 1 
-  service: 
-  port: 27017 
-  portName: mongodb-port
-  configmap: chess-mongodb-configmap
-  labels: chess-mongodb
+  service: "{{ .Release.Name }}-mongodb-svc"
+  port: 27017
+  username: "mongo_user"
+  password: "mongo_pass"
+  host: localhost
+

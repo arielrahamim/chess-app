@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: "{{- include "chess.name" . }}-frontend-deployment"
-  labels: {{- include "chess.labels" . | nindent 4 }} 
+  name: "{{ .Release.Name }}-frontend-deployment"
+  labels: {{- include "chess.labels" . }} 
 spec:
   replicas: {{ .Values.chessFrontend.replicaCount }}
   selector:
-    matchLabels: pod-frontend
+    matchLabels: 
+      instance: pod-frontend
   template:
     metadata:
-      name: frontend
       labels:
         instance: pod-frontend
     spec:
       containers:
       - name: front
-        image: "{{ .Values.chessFrontend.image }}:{{ .Values.chessFrontend.tag }}"
+        image: "{{ .Values.repository.name }}:{{ .Values.chessFrontend.tag}}"
         imagePullPolicy: Always
         envFrom:
         - configMapRef:
-            name: configmap-frontend 
+            name: {{ .Release.Name }}-frontend-configmap
 

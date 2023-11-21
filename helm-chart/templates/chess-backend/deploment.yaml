@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: "{{- include "chess.name" . }}-backend-deployment"
+  name: "{{ .Release.Name }}-backend-deployment"
   labels: {{- include "chess.labels" . | nindent 4 }} 
 spec:
   replicas: {{ .Values.chessBackend.replicaCount }}
@@ -10,14 +10,15 @@ spec:
       instance: pod-backend
   template:
     metadata:
-      name: backend
       labels:
         instance: pod-backend
     spec:
       containers:
       - name: chess-backend
-        image: "{{ .Values.chessBackend.image }}:{{ .Values.chessBackend.tag }}"
+        image: "{{ .Values.repository.name }}:{{ .Values.chessBackend.tag}}"
         imagePullPolicy: Always
         envFrom:
         - configMapRef:
             name: {{ .Release.Name }}-backend-configmap
+        - secretMapRef:
+            name: {{ .Release.Name }}-backend-secret

@@ -1,9 +1,9 @@
 apiVersion: apps/v1
-kind: Statefulset
+kind: StatefulSet
 metadata:
   labels:
     app: chess
-  name: "{{- include "chess.name" . }}-mongodb-deployment"
+  name: "{{ .Release.Name }}-mongodb-statefulset"
 spec:
   replicas: {{ .Values.mongodb.replicaCount }}
   selector:
@@ -15,18 +15,16 @@ spec:
         instance: pod-mongo
     spec:
       containers:
-      - image: "{{ .Values.mongodb.image }}:{{ .Values.mongodb.tag }}"
+      - image: "{{ .Values.repository.name }}:{{ .Values.mongodb.tag}}"
         name: mongodb
         imagePullPolicy: Always
-        args:
-        - --port= {{ .Values.mongodb.port }}
         envFrom:
-        - configMapRef:
-            name: configmap-mongo
-        volumeMounts:
-        - mountPath: 
-          name: mongo-volume
-      volumes:
-      - name: mongo-volume
-        persistentVolumeClaim:
-          claimName: 
+        - secretKeyRef:
+            name: {{ .Release.Name }}-mongodb-secret
+      #   volumeMounts:
+      #   - mountPath: 
+      #     name: mongo-volume
+      # volumes:
+      # - name: mongo-volume
+      #   persistentVolumeClaim:
+      #     claimName: 
