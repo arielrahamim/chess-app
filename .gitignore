@@ -1,2 +1,17 @@
-build
-node_modules
+*/build/*
+*/node_modules/*
+build/
+node_modules/
+
+# Local .terraform directories
+**/.terraform/*
+.terraform/
+*/.terraform/
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
+
+# Ignore CLI configuration files
+.terraformrc
+terraform.rc
