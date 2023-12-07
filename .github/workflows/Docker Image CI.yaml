@@ -66,15 +66,19 @@ jobs:
             git tag "${{ env.latest_tag }}" 
             git push --tag
             
+          # WIP implement a way to delete old tags in repo
+        - name: git_tag
+          run: |
+            git config user.name github-actions
+            git config user.email github-actions@github.com
+            git tag --sort=creatordate | grep ${{ github.event.inputs.image }} | head -n -1 | while read -r tag; do
+            git push --delete origin "$tag"
+            done
 
-        # - name: git_tag
-        #   run: |
-        #     # WIP implement a way to delete old tags in repo
-        #     git config user.name github-actions
-        #     git config user.email github-actions@github.com
-        #     old_tags=$(git tag --sort=creatordate | grep ${{ github.event.inputs.image }} | head -n -1)
-        #     git push --delete origin <tag_name> && git tag --delete <tag_name>
-            # WIP implement a way to delete old images in dockerhub
+
+
+
+        # WIP implement a way to delete old images in dockerhub
         # - name: Delete Old Docker Images on Docker Hub
         #   run: |
         #       # Fetch all tags for the repository
@@ -86,7 +90,6 @@ jobs:
         #           curl -X DELETE -H "Authorization: Bearer ${{ secrets.DOCKER_HUB_TOKEN }}" "https://hub.docker.com/v2/repositories/arielrahamim/chess-app/tags/$tag/"
         #         fi
         #       done
-
 
           
 
